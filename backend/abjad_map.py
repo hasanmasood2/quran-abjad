@@ -1,19 +1,25 @@
 import pyquran as pq
+from pyquran import quran as q
 
-abjad_map = {
+ABJAD_MAP = {
     ' ': 0, # Empty space worth zero
     pq.alef: 1,
     pq.alef_hamza_above: 1,
     pq.alef_hamza_below: 1,
+    pq.alef_mad: 1,
+    pq.hamza: 1,
     pq.beh: 2,
     pq.jeem: 3,
     pq.dal: 4,
     pq.heh: 5,
     pq.waw: 6,
+    pq.waw_hamza: 6,
     pq.zain: 7,
     pq.hah: 8,
     pq.tah: 9,
     pq.yeh: 10,
+    pq.yeh_hamza: 10,
+    pq.alef_maksura: 10,
     pq.kaf: 20,
     pq.lam: 30,
     pq.meem: 40,
@@ -35,14 +41,17 @@ abjad_map = {
     pq.ghain: 1000
 }
 
-aleflike = [
-     pq.alef, 
-     pq.alef_hamza_above,
-     pq.alef_hamza_below, 
-     pq.alef_mad,
-     pq.alef_wasl
-]
-character_like_map = {
-    pq.yehlike: pq.yeh,
-    aleflike: pq.alef
-}
+
+def get_abjad_score(list_of_characters):
+    '''
+    Takes a list of arabic characters
+    Returns the abjad value based on ABJAD_MAP
+    ABJAD_MAP is stored in abjad_map.py
+    '''
+    abjad_score = 0
+    for character in list_of_characters:
+        try:
+            abjad_score += ABJAD_MAP[character]
+        except KeyError:
+            print('Error was encountered on mapping ' + character)
+    return abjad_score
