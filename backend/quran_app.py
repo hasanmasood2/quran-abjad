@@ -8,10 +8,11 @@ app = Flask(__name__)
 def get_surah_names():
     surah_names = q.get_sura_name(sura_number=None)
     return {
-        'data': [{
+        'surahs': [{
             'surah_name': surah_name,
             'abjad_score': abjad_map.get_abjad_score(surah_name),
-            'number_of_verses': len(q.get_sura(surah_number, basmalah=True))
+            'number_of_verses': len(q.get_sura(surah_number + 1, basmalah=True)),
+            'surah_number': surah_number + 1,
             } for surah_number, surah_name in enumerate(surah_names)]
     }
 
